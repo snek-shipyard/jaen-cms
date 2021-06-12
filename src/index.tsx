@@ -40,9 +40,7 @@ ReactDOM.render(
     <React.StrictMode>
       <PersistGate loading={null} persistor={persistor}>
         <CMSProvider
-          bifrostUrls={{
-            httpUrl: 'http://localhost:8000/graphql'
-          }}
+          settings={{gitRemote: process.env.JAEN_GIT_REMOTE}}
           pages={[HomePage]}
         />
       </PersistGate>
