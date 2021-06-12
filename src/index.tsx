@@ -18,6 +18,12 @@ const HomePage: ConnectedPageType = ({slug}) => {
     <>
       <PageProvider typeName={HomePage.PageType} slug={slug}>
         <TextField fieldOptions={{name: 'testfield'}} />
+        <TextField
+          fieldOptions={{
+            name: 'testfield2',
+            block: {position: 0, typeName: 'heading'}
+          }}
+        />
         <IndexField
           outerElement={() => <div />}
           renderItem={(item, key, navigate) => (
@@ -40,7 +46,7 @@ ReactDOM.render(
     <React.StrictMode>
       <PersistGate loading={null} persistor={persistor}>
         <CMSProvider
-          settings={{gitRemote: process.env.JAEN_GIT_REMOTE}}
+          settings={{gitRemote: 'snek-shipyard/jaen-demo'}}
           pages={[HomePage]}
         />
       </PersistGate>
