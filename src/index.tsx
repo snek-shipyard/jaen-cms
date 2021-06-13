@@ -5,13 +5,15 @@ import {Provider} from 'react-redux'
 import {PersistGate} from 'redux-persist/integration/react'
 
 import './cms.scss'
-import StreamField from './components/fields/StreamField'
+// import StreamField from './components/fields/StreamField';
 import {
   ConnectedPageType,
   CMSProvider,
   PageProvider,
   EditableField,
+  SimpleTextField,
   RichTextField,
+  StreamField,
   BC,
   prepareBlocks
 } from './root'
@@ -25,18 +27,20 @@ export const TestBlock: BC<TestBlockFields> = ({fieldOptions}) => {
   return (
     <>
       {(Object.keys(blocks) as (keyof typeof blocks)[]).map(
-        (blockFieldName, _key) => {
+        (blockFieldName, key) => {
           const ConfiguredField = blocks[blockFieldName]
+
+          console.log(ConfiguredField)
 
           switch (blockFieldName) {
             case 'name':
-              return <h1>{ConfiguredField}</h1>
+              return <h1 key={key}>{ConfiguredField}</h1>
 
             case 'name2':
-              return <h2>{ConfiguredField}</h2>
+              return <>{ConfiguredField}</>
 
             default:
-              return {ConfiguredField}
+              return <>{ConfiguredField}</>
           }
         }
       )}
@@ -52,16 +56,18 @@ TestBlock.BlockFields = {
 
 type CardBlockType = {title: string; extra: string; text: string}
 
-export const CardBlock: BC<CardBlockType> = ({fieldOptions}) => {
+export const CardBlock: BC<CardBlockType> = ({
+  fieldOptions,
+  streamFieldWidth
+}) => {
   const blocks = prepareBlocks<CardBlockType>(CardBlock, fieldOptions)
-
-  console.log('blocks', blocks)
 
   return (
     <>
       <Card
         type="inner"
         title={blocks['title']}
+        style={{width: streamFieldWidth}}
         extra={<a href="#">{blocks['extra']}</a>}>
         {blocks['text']}
         {'test123'}
@@ -70,7 +76,7 @@ export const CardBlock: BC<CardBlockType> = ({fieldOptions}) => {
   )
 }
 
-CardBlock.BlockType = 'CardBlockType'
+CardBlock.BlockType = 'CardBlock'
 CardBlock.BlockFields = {
   title: EditableField,
   extra: EditableField,
@@ -81,8 +87,50 @@ const HomePage: ConnectedPageType = ({slug}) => {
   return (
     <>
       <PageProvider typeName={HomePage.PageType} slug={slug}>
-        {/* <TextField fieldOptions={{name: 'testfield'}} />
-        <TextField
+        <SimpleTextField name={'testfield'} />
+        <SimpleTextField name={'testfield2'} />
+
+        <EditableField
+          fieldOptions={{
+            fieldName: 'editableField',
+            block: {
+              position: 0,
+              typeName: 'TestBlock',
+              blockFieldName: 'heading1'
+            }
+          }}
+        />
+        <EditableField
+          fieldOptions={{
+            fieldName: 'editableField',
+            block: {
+              position: 0,
+              typeName: 'TestBlock',
+              blockFieldName: 'heading2'
+            }
+          }}
+        />
+        <EditableField
+          fieldOptions={{
+            fieldName: 'editableField',
+            block: {
+              position: 0,
+              typeName: 'TestBlock',
+              blockFieldName: 'heading3'
+            }
+          }}
+        />
+        <EditableField
+          fieldOptions={{
+            fieldName: 'editableField',
+            block: {
+              position: 0,
+              typeName: 'TestBlock',
+              blockFieldName: 'heading4'
+            }
+          }}
+        />
+        {/* <TextField
           fieldOptions={{
             name: 'testfield2',
             block: {position: 0, typeName: 'heading'}
@@ -97,8 +145,13 @@ const HomePage: ConnectedPageType = ({slug}) => {
             </p>
           )}
         /> */}
-        <Card>
-          <StreamField name={'timeline'} blocks={[CardBlock]} />
+
+        <Card style={{width: '50%', display: 'table'}}>
+          <StreamField
+            reverseOrder={false}
+            name={'timeline'}
+            blocks={[CardBlock, TestBlock]}
+          />
         </Card>
       </PageProvider>
     </>
