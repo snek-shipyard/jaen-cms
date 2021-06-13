@@ -1,9 +1,10 @@
 import 'antd/dist/antd.css'
 
-export type {ConnectedPageType} from '~/types'
+export type {BC, ConnectedPageType} from '~/types'
 
+export {prepareBlocks} from './components/blocks'
 export {
-  TextField,
+  EditableField,
   RichTextField,
   SimpleTextField,
   SimpleRichTextField,
