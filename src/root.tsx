@@ -8,6 +8,7 @@ export {
   RichTextField,
   SimpleTextField,
   SimpleRichTextField,
-  IndexField
+  IndexField,
+  StreamField
 } from './components/fields'
 export {CMSProvider, PageProvider} from './contexts'
