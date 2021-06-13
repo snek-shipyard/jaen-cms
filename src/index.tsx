@@ -1,3 +1,4 @@
+import {Card} from 'antd'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux'
@@ -19,24 +20,26 @@ import {persistor, store} from './store/store'
 type TestBlockFields = {name: 'test'; name2: 'test2'}
 
 export const TestBlock: BC<TestBlockFields> = ({fieldOptions}) => {
+  const blocks = prepareBlocks<TestBlockFields>(TestBlock, fieldOptions)
+
   return (
     <>
-      <div style={{backgroundColor: 'InfoBackground'}}>
-        {prepareBlocks<TestBlockFields>(TestBlock, fieldOptions).map(
-          ({ConfiguredField, blockFieldName}) => {
-            switch (blockFieldName) {
-              case 'name':
-                return <h1>{ConfiguredField}</h1>
+      {(Object.keys(blocks) as (keyof typeof blocks)[]).map(
+        (blockFieldName, _key) => {
+          const ConfiguredField = blocks[blockFieldName]
 
-              case 'name2':
-                return <h2>{ConfiguredField}</h2>
+          switch (blockFieldName) {
+            case 'name':
+              return <h1>{ConfiguredField}</h1>
 
-              default:
-                return {ConfiguredField}
-            }
+            case 'name2':
+              return <h2>{ConfiguredField}</h2>
+
+            default:
+              return {ConfiguredField}
           }
-        )}
-      </div>
+        }
+      )}
     </>
   )
 }
@@ -45,6 +48,33 @@ TestBlock.BlockType = 'TimelineBlock'
 TestBlock.BlockFields = {
   name: EditableField,
   name2: RichTextField
+}
+
+type CardBlockType = {title: string; extra: string; text: string}
+
+export const CardBlock: BC<CardBlockType> = ({fieldOptions}) => {
+  const blocks = prepareBlocks<CardBlockType>(CardBlock, fieldOptions)
+
+  console.log('blocks', blocks)
+
+  return (
+    <>
+      <Card
+        type="inner"
+        title={blocks['title']}
+        extra={<a href="#">{blocks['extra']}</a>}>
+        {blocks['text']}
+        {'test123'}
+      </Card>
+    </>
+  )
+}
+
+CardBlock.BlockType = 'CardBlockType'
+CardBlock.BlockFields = {
+  title: EditableField,
+  extra: EditableField,
+  text: RichTextField
 }
 
 const HomePage: ConnectedPageType = ({slug}) => {
@@ -67,7 +97,9 @@ const HomePage: ConnectedPageType = ({slug}) => {
             </p>
           )}
         /> */}
-        <StreamField name={'timeline'} blocks={[TestBlock]} />
+        <Card>
+          <StreamField name={'timeline'} blocks={[CardBlock]} />
+        </Card>
       </PageProvider>
     </>
   )
