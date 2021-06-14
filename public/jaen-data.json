@@ -1,44 +1,55 @@
 {
   "dataLayer": {
-    "origin": {
+    "working": {
       "pages": {
         "home": {
           "fields": {
-            "body": {
+            "timeline": {
               "blocks": {
-                "0": {
-                  "content": "Original Heading Content",
-                  "typeName": "heading"
+                "-1": {
+                  "typeName": "CardBlock"
                 },
-                "1": {
-                  "content": "<p>Original Subheading Content</p>",
-                  "typeName": "subheading"
+                "-2": {
+                  "typeName": "CardBlock"
+                },
+                "-3": {
+                  "typeName": "CardBlock"
+                },
+                "-4": {
+                  "typeName": "CardBlock"
+                },
+                "-5": {
+                  "typeName": "CardBlock"
+                },
+                "0": {
+                  "typeName": "CardBlock"
                 }
               }
             }
-          },
-          "typeName": "HomePage",
-          "hiddenChildSlugs": ["blog-1"]
+          }
         }
-      }
+      },
+      "updateFieldsCount": 1
     }
   },
   "index": {
     "checksum": "d716d3da6493f8e1ad5c9dc480ea595b0402355815f25c5353c6e37413516f32d",
-    "rootPageSlug": "home",
     "pages": {
-      "home": {
-        "slug": "home",
-        "title": "My HomePage",
-        "typeName": "HomePage",
-        "childSlugs": ["blog-1"]
-      },
       "blog-1": {
+        "childSlugs": [],
         "slug": "blog-1",
-        "typeName": "BlogPage",
         "title": "My first BlogPage",
-        "childSlugs": []
+        "typeName": "BlogPage"
+      },
+      "home": {
+        "childSlugs": [
+          "blog-1"
+        ],
+        "slug": "home",
+        "title": "My HomePage2",
+        "typeName": "HomePage"
       }
-    }
+    },
+    "rootPageSlug": "home"
   }
 }
