@@ -1,10 +1,8 @@
 import {Card} from 'antd'
-import React from 'react'
 import ReactDOM from 'react-dom'
-import {Provider} from 'react-redux'
-import {PersistGate} from 'redux-persist/integration/react'
 
 import './cms.scss'
+import {IndexField} from './components/fields'
 // import StreamField from './components/fields/StreamField';
 import {
   ConnectedPageType,
@@ -17,7 +15,6 @@ import {
   BC,
   prepareBlocks
 } from './root'
-import {persistor, store} from './store/store'
 
 type TestBlockFields = {name: 'test'; name2: 'test2'}
 
@@ -29,8 +26,6 @@ export const TestBlock: BC<TestBlockFields> = ({fieldOptions}) => {
       {(Object.keys(blocks) as (keyof typeof blocks)[]).map(
         (blockFieldName, key) => {
           const ConfiguredField = blocks[blockFieldName]
-
-          console.log(ConfiguredField)
 
           switch (blockFieldName) {
             case 'name':
@@ -146,6 +141,17 @@ const HomePage: ConnectedPageType = ({slug}) => {
           )}
         /> */}
 
+        <IndexField
+          fixedSlug={'home2'}
+          outerElement={() => <div />}
+          renderItem={(item, key, navigate) => (
+            <p key={key}>
+              Slug: {item.slug} Title: {item.title}{' '}
+              <a onClick={() => navigate()}>Goto</a>
+            </p>
+          )}
+        />
+
         <Card style={{width: '50%', display: 'table'}}>
           <StreamField
             reverseOrder={false}
@@ -162,16 +168,9 @@ HomePage.PageType = 'HomePage'
 HomePage.ChildPages = [HomePage]
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <PersistGate loading={null} persistor={persistor}>
-        <CMSProvider
-          settings={{gitRemote: 'snek-shipyard/jaen-demo'}}
-          pages={[HomePage]}
-        />
-      </PersistGate>
-    </React.StrictMode>
-  </Provider>,
-
+  <CMSProvider
+    settings={{gitRemote: 'snek-shipyard/jaen-demo'}}
+    pages={[HomePage]}
+  />,
   document.getElementById('root')
 )
