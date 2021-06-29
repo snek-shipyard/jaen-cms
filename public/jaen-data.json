@@ -1,67 +1,46 @@
-
 {
   "dataLayer": {
     "working": {
       "pages": {
+        "b": {
+          "details": {
+            "childSlugs": [],
+            "hiddenChildSlugs": [],
+            "slug": "b",
+            "title": "b",
+            "typeName": "HomePage"
+          }
+        },
+        "c": {
+          "details": {
+            "childSlugs": ["d"],
+            "hiddenChildSlugs": [],
+            "slug": "c",
+            "title": "cc",
+            "typeName": "HomePage"
+          }
+        },
+        "d": {
+          "details": {
+            "childSlugs": [],
+            "hiddenChildSlugs": [],
+            "slug": "d",
+            "title": "d",
+            "typeName": "HomePage"
+          }
+        },
         "home": {
-          "fields": {
-            "timeline": {
-              "blocks": {
-                "-1": {
-                  "typeName": "CardBlock"
-                },
-                "-2": {
-                  "typeName": "CardBlock"
-                },
-                "-3": {
-                  "fields": {
-                    "text": "<h1>https://a.at</h1>\n<h1><br></h1>\n<p><br></p>"
-                  },
-                  "typeName": "CardBlock"
-                },
-                "-4": {
-                  "typeName": "CardBlock"
-                },
-                "-5": {
-                  "typeName": "CardBlock"
-                },
-                "0": {
-                  "typeName": "CardBlock"
-                }
-              }
-            }
+          "details": {
+            "childSlugs": ["b", "c"],
+            "hiddenChildSlugs": [],
+            "slug": "home",
+            "title": "test homepage2",
+            "typeName": "HomePage"
           },
-          "typeName": "HomePage"
+          "fields": {}
         }
       },
-      "updateFieldsCount": 1
+      "rootPageSlug": "home"
     }
-  },
-  "index": {
-    "checksum": "d716d3da6493f8e1ad5c9dc480ea595b0402355815f25c5353c6e37413516f32d",
-    "pages": {
-      "blog-1": {
-        "childSlugs": [],
-        "slug": "blog-1",
-        "title": "My first BlogPage",
-        "typeName": "BlogPage"
-      },
-      "home": {
-        "childSlugs": [
-          "blog-1",
-          "home2"
-        ],
-        "slug": "home",
-        "title": "My HomePage2",
-        "typeName": "HomePage"
-      },
-      "home2": {
-        "childSlugs": [],
-        "slug": "home2",
-        "title": "test",
-        "typeName": "HomePage"
-      }
-    },
-    "rootPageSlug": "home"
   }
 }

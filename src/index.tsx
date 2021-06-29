@@ -2,52 +2,17 @@ import {Card} from 'antd'
 import ReactDOM from 'react-dom'
 
 import './cms.scss'
-import {IndexField} from './components/fields'
-// import StreamField from './components/fields/StreamField';
 import {
   ConnectedPageType,
   CMSProvider,
-  PageProvider,
   EditableField,
   SimpleTextField,
   RichTextField,
+  IndexField,
   StreamField,
   BC,
   prepareBlocks
 } from './root'
-
-type TestBlockFields = {name: 'test'; name2: 'test2'}
-
-export const TestBlock: BC<TestBlockFields> = ({fieldOptions}) => {
-  const blocks = prepareBlocks<TestBlockFields>(TestBlock, fieldOptions)
-
-  return (
-    <>
-      {(Object.keys(blocks) as (keyof typeof blocks)[]).map(
-        (blockFieldName, key) => {
-          const ConfiguredField = blocks[blockFieldName]
-
-          switch (blockFieldName) {
-            case 'name':
-              return <h1 key={key}>{ConfiguredField}</h1>
-
-            case 'name2':
-              return <>{ConfiguredField}</>
-
-            default:
-              return <>{ConfiguredField}</>
-          }
-        }
-      )}
-    </>
-  )
-}
-
-TestBlock.BlockType = 'TimelineBlock'
-TestBlock.BlockFields = {
-  name: EditableField,
-  name2: RichTextField
-}
 
 type CardBlockType = {title: string; extra: string; text: string}
 
@@ -78,88 +43,53 @@ CardBlock.BlockFields = {
   text: RichTextField
 }
 
-const HomePage: ConnectedPageType = ({slug}) => {
+const HomePage: ConnectedPageType = () => {
+  console.log('Render homepage')
   return (
     <>
-      <PageProvider typeName={HomePage.PageType} slug={slug}>
-        <SimpleTextField name={'testfield'} />
-        <SimpleTextField name={'testfield2'} />
-
-        <EditableField
-          fieldOptions={{
-            fieldName: 'editableField',
-            block: {
-              position: 0,
-              typeName: 'TestBlock',
-              blockFieldName: 'heading1'
-            }
-          }}
+      <h1>test</h1>
+      <SimpleTextField name="testfield" />
+      <EditableField
+        fieldOptions={{
+          fieldName: 'f1',
+          block: {typeName: 'TestBlock', position: 0, blockFieldName: 'h1'}
+        }}
+      />
+      <EditableField
+        fieldOptions={{
+          fieldName: 'f1',
+          block: {typeName: 'TestBlock', position: 0, blockFieldName: 'h2'}
+        }}
+      />
+      <EditableField
+        fieldOptions={{
+          fieldName: 'f2',
+          block: {typeName: 'TestBlock', position: 0, blockFieldName: 'h1'}
+        }}
+      />
+      <EditableField
+        fieldOptions={{
+          fieldName: 'f2',
+          block: {typeName: 'TestBlock', position: 0, blockFieldName: 'h2'}
+        }}
+      />
+      <IndexField
+        fixedSlug={'home'}
+        outerElement={() => <div />}
+        renderItem={(item, key, navigate) => (
+          <p key={key}>
+            Slug: {item.slug} Title: {item.title}{' '}
+            <a onClick={() => navigate()}>Goto</a>
+          </p>
+        )}
+      />
+      <Card style={{width: '50%', display: 'table'}}>
+        <StreamField
+          reverseOrder={false}
+          name={'timeline'}
+          blocks={[CardBlock]}
         />
-        <EditableField
-          fieldOptions={{
-            fieldName: 'editableField',
-            block: {
-              position: 0,
-              typeName: 'TestBlock',
-              blockFieldName: 'heading2'
-            }
-          }}
-        />
-        <EditableField
-          fieldOptions={{
-            fieldName: 'editableField',
-            block: {
-              position: 0,
-              typeName: 'TestBlock',
-              blockFieldName: 'heading3'
-            }
-          }}
-        />
-        <EditableField
-          fieldOptions={{
-            fieldName: 'editableField',
-            block: {
-              position: 0,
-              typeName: 'TestBlock',
-              blockFieldName: 'heading4'
-            }
-          }}
-        />
-        {/* <TextField
-          fieldOptions={{
-            name: 'testfield2',
-            block: {position: 0, typeName: 'heading'}
-          }}
-        />
-        <IndexField
-          outerElement={() => <div />}
-          renderItem={(item, key, navigate) => (
-            <p key={key}>
-              Slug: {item.slug} Title: {item.title}{' '}
-              <a onClick={() => navigate()}>Goto</a>
-            </p>
-          )}
-        /> */}
-
-        <IndexField
-          fixedSlug={'home2'}
-          outerElement={() => <div />}
-          renderItem={(item, key, navigate) => (
-            <p key={key}>
-              Slug: {item.slug} Title: {item.title}{' '}
-              <a onClick={() => navigate()}>Goto</a>
-            </p>
-          )}
-        />
-
-        <Card style={{width: '50%', display: 'table'}}>
-          <StreamField
-            reverseOrder={false}
-            name={'timeline'}
-            blocks={[CardBlock, TestBlock]}
-          />
-        </Card>
-      </PageProvider>
+      </Card>
     </>
   )
 }
