@@ -44,7 +44,6 @@ CardBlock.BlockFields = {
 }
 
 const HomePage: ConnectedPageType = () => {
-  console.log('Render homepage')
   return (
     <>
       <h1>test</h1>
