@@ -7,6 +7,7 @@ import {
   CMSProvider,
   EditableField,
   SimpleTextField,
+  SimpleRichTextField,
   RichTextField,
   IndexField,
   StreamField,
@@ -45,9 +46,10 @@ CardBlock.BlockFields = {
 
 const HomePage: ConnectedPageType = () => {
   return (
-    <>
+    <div style={{marginLeft: 100, marginRight: 100}}>
       <h1>test</h1>
       <SimpleTextField name="testfield" />
+      <SimpleRichTextField name="rtextfield" />
       <EditableField
         fieldOptions={{
           fieldName: 'f1',
@@ -89,7 +91,7 @@ const HomePage: ConnectedPageType = () => {
           blocks={[CardBlock]}
         />
       </Card>
-    </>
+    </div>
   )
 }
 
