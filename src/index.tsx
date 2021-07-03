@@ -8,7 +8,6 @@
 import {Card} from 'antd'
 import ReactDOM from 'react-dom'
 
-import './cms.scss'
 import {
   ConnectedPageType,
   CMSProvider,
