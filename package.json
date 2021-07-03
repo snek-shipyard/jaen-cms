@@ -1,12 +1,16 @@
 {
   "name": "@snek-shipyard/jaen-cms",
   "version": "1.0.0",
-  "description": "A react cms solution",
+  "description": "CMS framework for ReactJS",
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "format": "prettier --write .",
+    "format-check": "prettier --check .",
+    "lint": "eslint src --ext .ts,.tsx",
     "type-check": "tsc",
     "type-check:watch": "npm run type-check -- --watch",
+    "all": "npm run build && npm run format && npm run lint && npm pack",
     "build2": "npm run build:types && npm run build:js",
     "build:types": "tsc",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline --ignore \"src/**/*.test.ts\" --copy-files"
@@ -43,6 +47,7 @@
     "@types/react": "^17.0.5",
     "@types/react-dom": "^17.0.7",
     "@types/react-router-dom": "^5.1.7",
+    "babel-eslint": "^10.1.0",
     "babel-plugin-inline-react-svg": "^2.0.1",
     "babel-plugin-root-import": "^6.6.0",
     "babel-plugin-transform-scss": "^1.0.9",
@@ -92,16 +97,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:react/recommended"
-    ],
-    "rules": {
-      "react/prop-types": 0,
-      "react/react-in-jsx-scope": "off"
-    }
   }
 }
